@@ -1,12 +1,19 @@
 --<%= boundary %>
 Content-type: application/atom+xml
 
-<entry xmlns="http://www.w3.org/2005/Atom">
+<entry xmlns="http://www.w3.org/2005/Atom" xmlns:georss='http://www.georss.org/georss'>
   <title><%= h title %></title>
   <% if summary %>
   <summary><%= h summary %></summary>
   <% end %>
   <category scheme="http://schemas.google.com/g/2005#kind" term="http://schemas.google.com/photos/2007#photo"/>
+<% if location %>
+<georss:where>
+  <gml:Point>
+    <gml:pos><%= h location %></gml:pos>
+  </gml:Point>
+</georss:where>
+<% end %>
 </entry>
 --<%= boundary %>
 Content-type: <%= h content_type %>
