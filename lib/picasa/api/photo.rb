@@ -39,7 +39,7 @@ module Picasa
         template = Template.new(:new_photo, params)
         headers = auth_header.merge({"Content-Type" => "multipart/related; boundary=\"#{params[:boundary]}\""})
 
-        path = "/data/feed/api/user/#{user_id}/albumid/#{album_id}/#{photo_id}"
+        path = "/data/feed/api/user/#{user_id}/albumid/#{album_id}/photoid/#{photo_id}"
         response = Connection.new.put(path: path, body: template.render, headers: headers)
 
         Presenter::Photo.new(response.parsed_response["entry"])
