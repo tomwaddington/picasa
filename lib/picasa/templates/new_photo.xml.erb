@@ -1,10 +1,8 @@
-<%- if content_type -%>--<%= boundary %>
+--<%= boundary %>
 Content-type: application/atom+xml
 
-<%- end -%><entry xmlns="http://www.w3.org/2005/Atom" xmlns:gml='http://www.opengis.net/gml' xmlns:georss='http://www.georss.org/georss'>
-	<% if title %>
+<entry xmlns="http://www.w3.org/2005/Atom" xmlns:georss='http://www.georss.org/georss'>
   <title><%= h title %></title>
-<% end %>
   <% if summary %>
   <summary><%= h summary %></summary>
   <% end %>
@@ -12,15 +10,13 @@ Content-type: application/atom+xml
 <% if location %>
 <georss:where>
   <gml:Point>
-    <gml:pos><%= h location %></gml:pos>
+    <gml:pos>35.669998 139.770004</gml:pos>
   </gml:Point>
 </georss:where>
 <% end %>
 </entry>
-<% if content_type %>
 --<%= boundary %>
 Content-type: <%= h content_type %>
 
 <%= binary %>
 --<%= boundary %>
-<% end %>
