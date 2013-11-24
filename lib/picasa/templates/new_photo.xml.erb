@@ -1,7 +1,7 @@
 --<%= boundary %>
 Content-type: application/atom+xml
 
-<entry xmlns="http://www.w3.org/2005/Atom" xmlns:georss='http://www.georss.org/georss'>
+<entry xmlns="http://www.w3.org/2005/Atom" xmlns:georss='http://www.georss.org/georss' xmlns:georss='http://www.georss.org/georss'>
   <title><%= h title %></title>
   <% if summary %>
   <summary><%= h summary %></summary>
@@ -10,7 +10,7 @@ Content-type: application/atom+xml
 <% if location %>
 <georss:where>
   <gml:Point>
-    <gml:pos>35.669998 139.770004</gml:pos>
+    <gml:pos><%= location %></gml:pos>
   </gml:Point>
 </georss:where>
 <% end %>
