@@ -20,7 +20,14 @@ module Picasa
       params[:headers]["Content-Type"] ||= "application/atom+xml"
       exec_request(params) { |uri, options| HTTP.post(uri, options) }
     end
-
+    
+    
+    def put(params = {})
+      params[:headers] ||= {}
+      params[:headers]["Content-Type"] ||= "application/atom+xml"
+      exec_request(params) { |uri, options| HTTP.put(uri, options) }
+    end
+    
     # @param [Hash] params request arguments
     # @option params [String] :host host of request
     # @option params [String] :path request path

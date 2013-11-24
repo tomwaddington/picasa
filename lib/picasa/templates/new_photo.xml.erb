@@ -2,7 +2,9 @@
 Content-type: application/atom+xml
 
 <entry xmlns="http://www.w3.org/2005/Atom" xmlns:gml='http://www.opengis.net/gml' xmlns:georss='http://www.georss.org/georss'>
+	<% if title %>
   <title><%= h title %></title>
+<% end %>
   <% if summary %>
   <summary><%= h summary %></summary>
   <% end %>
@@ -15,8 +17,10 @@ Content-type: application/atom+xml
 </georss:where>
 <% end %>
 </entry>
+<% if content_type %>
 --<%= boundary %>
 Content-type: <%= h content_type %>
 
 <%= binary %>
+<% end %>
 --<%= boundary %>

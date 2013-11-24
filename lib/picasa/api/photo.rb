@@ -27,6 +27,23 @@ module Picasa
 
         Presenter::Photo.new(response.parsed_response["entry"])
       end
+      
+      def update(album_id, photo_id, params={})
+        if params[:file_path]
+          file = params[:file_path] ? File.new(params.delete(:file_path)) : File::Null.new
+          params[:boundary]     ||= "===============PicasaRubyGem=="
+          params[:title]        ||= file.name || raise(ArgumentError.new("title must be specified"))
+          params[:binary]       ||= file.binary || raise(ArgumentError.new("binary must be specified"))
+          params[:content_type] ||= file.content_type || raise(ArgumentError.new("content_type must be specified"))
+        end
+        template = Template.new(:new_photo, params)
+        headers = auth_header.merge({"Content-Type" => "multipart/related; boundary=\"#{params[:boundary]}\""})
+
+        path = "/data/feed/api/user/#{user_id}/albumid/#{album_id}/#{photo_id}"
+        response = Connection.new.put(path: path, body: template.render, headers: headers)
+
+        Presenter::Photo.new(response.parsed_response["entry"])
+      end
 
       # Destroys given photo
       #
