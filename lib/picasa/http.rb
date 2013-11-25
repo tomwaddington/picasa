@@ -4,6 +4,7 @@ require "uri"
 module Picasa
   class HTTP
     include HTTParty
+    
 
     API_URL      = "https://picasaweb.google.com"
     API_AUTH_URL = "https://www.google.com"
