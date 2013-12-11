@@ -28,6 +28,30 @@ module Picasa
         Presenter::Photo.new(response.parsed_response["entry"])
       end
       
+      
+      def update_metadata(album_id, photo_id, params={})
+        path = "/data/entry/api/user/#{user_id}/albumid/#{album_id}/photoid/#{photo_id}"
+        #
+        data = Connection.new.get(path: path, headers: auth_header)
+        x = Presenter::Photo.new(data.parsed_response["entry"])
+        #puts x
+        #puts x.parsed_body
+        #puts x.parsed_body['link'].to_yaml #.find { |z| z['rel']=='edit '}
+        path = x.parsed_body['link'][4]['href']
+        
+        template = Template.new(:photo, params)
+              # '/data/entry/api/user/userID/albumid/albumID/photoid/photoID'
+        #path = "/data/entry/api/user/#{user_id}/albumid/#{album_id}/photoid/#{photo_id}"
+        #puts template.render
+        headers = auth_header.merge({"Content-Type" => "application/xml"})
+        headers = headers.merge({"If-Match"=> "*"})
+        
+        response = Connection.new.patch(path: path, body: template.render, headers: headers)
+        Presenter::Photo.new(response.parsed_response["entry"])
+        
+      end
+      
+      
       def update(album_id, photo_id, params={})
       file = params[:file_path] ? File.new(params.delete(:file_path)) : File::Null.new
       params[:boundary]     ||= "===============PicasaRubyGem=="

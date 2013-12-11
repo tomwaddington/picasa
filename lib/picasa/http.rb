@@ -4,6 +4,7 @@ require "uri"
 module Picasa
   class HTTP
     include HTTParty
+    #debug_output $stderr
     
 
     API_URL      = "https://picasaweb.google.com"

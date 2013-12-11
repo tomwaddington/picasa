@@ -1,5 +1,8 @@
 module Picasa
   class Connection
+    
+    
+    
     # @param [Hash] params request arguments
     # @option params [String] :host host of request
     # @option params [String] :path request path
@@ -26,6 +29,12 @@ module Picasa
       params[:headers] ||= {}
       params[:headers]["Content-Type"] ||= "application/atom+xml"
       exec_request(params) { |uri, options| HTTP.put(uri, options) }
+    end
+    
+    def patch(params = {})
+      params[:headers] ||= {}
+      params[:headers]["Content-Type"] ||= "application/atom+xml"
+      exec_request(params) { |uri, options| HTTP.patch(uri, options) }
     end
     
     # @param [Hash] params request arguments
